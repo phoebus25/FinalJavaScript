@@ -50,9 +50,17 @@ punto.onclick = function() {
 
 function Numero(num,n) {
   num.onclick = function() {
-    if (display.innerHTML=="0"){display.innerHTML= n;
-    } else {
-      if (display.innerHTML.length<8) {display.innerHTML+= n;}
+    if(x=="0"){
+      if (display.innerHTML=="0"){display.innerHTML= n;
+      } else {
+        if (display.innerHTML.length<8) {display.innerHTML+= n;}
+      }
+    }
+    if(x=="1"){
+      if (display.innerHTML=="0"){display.innerHTML= n;x="0";
+      } else {
+         display.innerHTML= n;x="0";
+      }
     }
   }
   num.onmousedown = function () { BotonPresionado(num) }
