@@ -41,12 +41,17 @@ signo.onclick = function() {
   }
 
 punto.onclick = function() {
-  if (display.innerHTML=="0" || display.innerHTML==""){display.innerHTML= "0.";}
-  else {
-      if(display.innerHTML.indexOf('.')!=-1){display.innerHTML+= "";}
-      else {display.innerHTML+= ".";}
-    }
+  if(x=="0"){
+    if (display.innerHTML=="0" || display.innerHTML==""){display.innerHTML= "0.";}
+    else {
+        if(display.innerHTML.indexOf('.')!=-1){display.innerHTML+= "";}
+        else {display.innerHTML+= ".";}
+      }
   }
+  if(x=="1"){
+       display.innerHTML= "0.";x="0";
+  }
+}
 
 function Numero(num,n) {
   num.onclick = function() {
@@ -57,10 +62,7 @@ function Numero(num,n) {
       }
     }
     if(x=="1"){
-      if (display.innerHTML=="0"){display.innerHTML= n;x="0";
-      } else {
          display.innerHTML= n;x="0";
-      }
     }
   }
   num.onmousedown = function () { BotonPresionado(num) }
@@ -105,18 +107,16 @@ Boton(raiz)
 Boton(punto)
 Boton(igual)
 
-var resultado=0
 
 igual.onclick = function(){
-  if(operador=="1" && x=="0"){num2 = display.innerHTML;resultado = (Number(num1)*10 + Number(num2)*10)/10;display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="1" && x=="1"){num1 = display.innerHTML;resultado = (Number(num1)*10 + Number(num2)*10)/10;display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="2" && x=="0"){num2 = display.innerHTML;resultado = Number(num1) - Number(num2);display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="2" && x=="1"){num1 = display.innerHTML;resultado = Number(num1) - Number(num2);display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="3" && x=="0"){num2 = display.innerHTML;resultado = Number(num1) * Number(num2);display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="3" && x=="1"){num1 = display.innerHTML;resultado = Number(num1) * Number(num2);display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="4" && x=="0"){num2 = display.innerHTML;resultado = Number(num1) / Number(num2);display.innerHTML = resultado.toString().substr(0,8)}
-  if(operador=="4" && x=="1"){num1 = display.innerHTML;resultado = Number(num1) / Number(num2);display.innerHTML = resultado.toString().substr(0,8)}
-
+  if(operador=="1" && x=="0"){num2 = display.innerHTML;display.innerHTML = Suma(num1,num2)}
+  if(operador=="1" && x=="1"){num1 = display.innerHTML;display.innerHTML = Suma(num1,num2)}
+  if(operador=="2" && x=="0"){num2 = display.innerHTML;display.innerHTML = Resta(num1,num2)}
+  if(operador=="2" && x=="1"){num1 = display.innerHTML;display.innerHTML = Resta(num1,num2)}
+  if(operador=="3" && x=="0"){num2 = display.innerHTML;display.innerHTML = Multiplica(num1,num2)}
+  if(operador=="3" && x=="1"){num1 = display.innerHTML;display.innerHTML = Multiplica(num1,num2)}
+  if(operador=="4" && x=="0"){num2 = display.innerHTML;display.innerHTML = Divide(num1,num2)}
+  if(operador=="4" && x=="1"){num1 = display.innerHTML;display.innerHTML = Divide(num1,num2)}
   x="1"
 }
 
@@ -126,4 +126,29 @@ function BotonPresionado(elemento){
 
 function BotonNormal(elemento){
   elemento.style="";
+}
+
+function Suma(a,b) {
+  result = (Number(a)*10 + Number(b)*10)/10
+  result = result.toString().substr(0,8)
+  return result
+}
+
+function Resta(a,b) {
+  result = (Number(a)*10 - Number(b)*10)/10
+  result = result.toString().substr(0,8)
+  return result
+}
+
+function Multiplica(a,b) {
+  result = Number(a) * Number(b)
+  result = result.toString().substr(0,8)
+  return result
+}
+
+function Divide(a,b) {
+  result = Number(a) / Number(b)
+  if(result=="Infinity" || result =="-Infinity"){result="Error"}
+  result = result.toString().substr(0,8)
+  return result
 }
